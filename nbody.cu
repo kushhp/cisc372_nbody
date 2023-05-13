@@ -6,7 +6,7 @@
 #include "config.h"
 #include "planets.h"
 #include "compute.h"
-#include "compute_parallel.cu"
+#include "compute_parallel.h"
 
 // represents the objects in the system.  Global variables
 vector3 *hVel, *d_hVel;
