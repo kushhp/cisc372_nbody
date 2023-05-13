@@ -3,6 +3,7 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include "vector.h"
+#include "planets.h"
 #include "config.h"
 #include "compute.h"
 
