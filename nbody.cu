@@ -126,7 +126,7 @@ int main(int argc, char **argv)
 	cudaDeviceSynchronize();
 
 	for (t_now=0;t_now<DURATION;t_now+=INTERVAL){
-		computeAccel<<<blockSize, numBlocks>>>(d_Accel, d_Values, d_Sum);
+		computeAccel<<<blockSize, numBlocks>>>(d_Accel, d_Values, d_Su, d_hPos, mass);
 		computeSum<<<blockSize, numBlocks>>>(d_Accel, d_Sum, d_hVel, d_hPos);
 	}
 	cudaDeviceSynchronize();
