@@ -11,8 +11,8 @@
 // represents the objects in the system.  Global variables
 vector3 *hVel, *d_hVel;
 vector3 *hPos, *d_hPos;
-vector3 *d_Accel, *d_Sum;
-vector3 *d_Values;
+vector3 *d_Values, *d_Sum;
+vector3 **d_Accel;
 double *mass;
 
 //initHostMemory: Create storage for numObjects entities in our system
