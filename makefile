@@ -8,7 +8,7 @@ nbody.o: nbody.c planets.h config.h vector.h $(ALWAYS_REBUILD)
 	gcc $(FLAGS) -c $< 
 compute.o: compute.c config.h vector.h $(ALWAYS_REBUILD)
 	gcc $(FLAGS) -c $< 
-parallel: nbody.cu compute_parallel.h
-	nvcc $(FLAGS) nbody.cu compute_parallel.cu -o parallel $(LIBS)
+parallel: nbody.cu compute_parallel.cuh
+	nvcc $(FLAGS) nbody.cu compute_parallel.cuh -o parallel $(LIBS)
 clean:
 	rm -f *.o nbody 

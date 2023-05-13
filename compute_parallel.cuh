@@ -4,7 +4,7 @@
 #include <cuda_runtime.h>
 #include "vector.h"
 #include "config.h"
-#include "compute.h"
+//#include "compute.h"
 
 __global__ void make_accel_matrix(vector3** accels, vector3* values) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
