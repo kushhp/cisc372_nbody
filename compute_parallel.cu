@@ -6,15 +6,15 @@
 #include "config.h"
 #include "compute.h"
 
-__global__ void make_accel_matrix(vector3* accels, vector3* values) {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if (idx >= NUMENTITIES) {
+__global__ void make_accel_matrix(vector3** accels, vector3* values) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= NUMENTITIES) {
         return;
     }
-    accels[idx] = &values[idx*NUMENTITIES];
+    accels[i] = &values[i*NUMENTITIES];
 }
 
-__global__ void computeAccel(vector3* accels, vector3* values, vector3 *accel_sum) {
+__global__ void computeAccel(vector3** accels, vector3* values, vector3 *accel_sum) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j, k;
 
@@ -37,7 +37,7 @@ __global__ void computeAccel(vector3* accels, vector3* values, vector3 *accel_su
     }
 }
 
-__global__ void computeSum(vector3* accels, vector3 *accel_sum, vector3* hVel, vector3* hPos) {
+__global__ void computeSum(vector3** accels, vector3 *accel_sum, vector3* hVel, vector3* hPos) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j, k;
 

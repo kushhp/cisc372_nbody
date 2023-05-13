@@ -61,7 +61,7 @@ void planetFill(){
 //Side Effects: Fills count entries in our system starting at index start (0 based)
 void randomFill(int start, int count)
 {
-	int i, j, c = start;
+	int i, j;// c = start;
 	for (i = start; i < start + count; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -110,10 +110,10 @@ int main(int argc, char **argv)
 	int numBlocks = (NUMENTITIES + blockSize - 1) / blockSize;
 	cudaMalloc((void**)&d_hVel, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_hPos, sizeof(vector3)*NUMENTITIES);
-	cudaMalloc((void**)&d_Accel, sizeof(vector3)*NUMENTITIES);
+	cudaMalloc((void***)&d_Accel, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_Sum, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&mass, sizeof(double)*NUMENTITIES);
-	cudaMalloc((void**)&d_Values, sizeof(double)*NUMENTITIES);
+	cudaMalloc((void**)&d_Values, sizeof(vector3)*NUMENTITIES);
 
 	cudaMemcpy(d_hVel, hVel, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
 	cudaMemcpy(d_hPos, hPos, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
