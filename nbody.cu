@@ -106,7 +106,7 @@ int main(int argc, char **argv)
 		printSystem(stdout);
 	#endif
 
-	int blockSize = 512;
+	int blockSize = 128;
 	int numBlocks = (NUMENTITIES + blockSize - 1) / blockSize;
 	cudaMalloc((void**)&d_hVel, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_hPos, sizeof(vector3)*NUMENTITIES);
