@@ -14,7 +14,7 @@ __global__ void make_accel_matrix(vector3* accels, vector3* values) {
     accels[idx] = &values[idx*NUMENTITIES];
 }
 
-__global__ void computeAccel(vector3** accels, vector3* values, vector3 *accel_sum) {
+__global__ void computeAccel(vector3* accels, vector3* values, vector3 *accel_sum) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j, k;
 
@@ -37,7 +37,7 @@ __global__ void computeAccel(vector3** accels, vector3* values, vector3 *accel_s
     }
 }
 
-__global__ void computeSum(vector3** accels, vector3 *accel_sum, vector3* hVel, vector3* hPos) {
+__global__ void computeSum(vector3* accels, vector3 *accel_sum, vector3* hVel, vector3* hPos) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     int j, k;
 
