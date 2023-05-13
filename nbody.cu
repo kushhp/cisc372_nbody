@@ -7,7 +7,7 @@
 #include "planets.h"
 #include "compute.h"
 #include "compute_parallel.cuh"
-
+// Partner: Carlson and Kush
 // represents the objects in the system.  Global variables
 vector3 *hVel, *d_hVel;
 vector3 *hPos, *d_hPos;
