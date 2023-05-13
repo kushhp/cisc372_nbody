@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 	#endif
 
 	int blockSize = 256;
-	int numBlocks = (NUMENTITIES + blockSize - 1) / blockSize;
+	int numBlocks = (NUMENTITIES+blockSize-1) / blockSize;
 	cudaMalloc((void**)&d_hVel, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_hPos, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void***)&d_Accel, sizeof(vector3)*NUMENTITIES);
@@ -135,7 +135,6 @@ int main(int argc, char **argv)
 	#ifdef DEBUG
 		printSystem(stdout);
 	#endif
-	printf("This took a total time of %f seconds\n",(double)t1/CLOCKS_PER_SEC);
 
 	cudaFree(d_hVel);
 	cudaFree(d_hPos);
@@ -144,4 +143,5 @@ int main(int argc, char **argv)
 	cudaFree(d_Sum);
 	cudaFree(mass);
 	freeHostMemory();
+	printf("This took a total time of %f seconds\n",(double)t1/CLOCKS_PER_SEC);
 }
