@@ -12,7 +12,7 @@
 vector3 *hVel, *d_hVel;
 vector3 *hPos, *d_hPos;
 vector3 *d_Accel, *d_Sum;
-vector3 *d_values;
+vector3 *d_Values;
 double *mass;
 
 //initHostMemory: Create storage for numObjects entities in our system
@@ -108,15 +108,15 @@ int main(int argc, char **argv)
 
 	int blockSize = 256;
 	int numBlocks = (NUMENTITIES + blockSize - 1) / blockSize;
-	cudaMalloc((void**)&d_hvel, sizeof(vector3)*NUMENTITIES);
-	cudaMalloc((void**)&d_hpos, sizeof(vector3)*NUMENTITIES);
+	cudaMalloc((void**)&d_hVel, sizeof(vector3)*NUMENTITIES);
+	cudaMalloc((void**)&d_hPos, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_Accel, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&d_Sum, sizeof(vector3)*NUMENTITIES);
 	cudaMalloc((void**)&mass, sizeof(double)*NUMENTITIES);
 	cudaMalloc((void**)&d_Values, sizeof(double)*NUMENTITIES);
 
-	cudaMemcpy(d_hvel, hVel, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
-	cudaMemcpy(d_hpos, hPos, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
+	cudaMemcpy(d_hVel, hVel, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
+	cudaMemcpy(d_hPos, hPos, sizeof(vector3)*NUMENTITIES, cudaMemcpyHostToDevice);
 	cudaMemcpy(mass, mass, sizeof(double)*NUMENTITIES, cudaMemcpyHostToDevice);
 	//cudaMemcpy(d_Sum, mass, sizeof(double)*NUMENTITIES, cudaMemcpyHostToDevice);
 	//cudaMemcpy(d_Accel, mass, sizeof(double)*NUMENTITIES, cudaMemcpyHostToDevice);
@@ -127,7 +127,7 @@ int main(int argc, char **argv)
 
 	for (t_now=0;t_now<DURATION;t_now+=INTERVAL){
 		computeAccel<<<blockSize, numBlocks>>>(d_Accel, d_Values, d_Sum);
-		computeSum<<<blockSize, numBlocks>>>(d_Accel, d_Sum, d_hvel, d_hpos);
+		computeSum<<<blockSize, numBlocks>>>(d_Accel, d_Sum, d_hVel, d_hPos);
 	}
 	cudaDeviceSynchronize();
 
@@ -137,8 +137,8 @@ int main(int argc, char **argv)
 	#endif
 	printf("This took a total time of %f seconds\n",(double)t1/CLOCKS_PER_SEC);
 
-	cudaFree(d_hvel);
-	cudaFree(d_hpos);
+	cudaFree(d_hVel);
+	cudaFree(d_hPos);
 	cudaFree(d_Accel);
 	cudaFree(d_Values);
 	cudaFree(d_Sum);

@@ -6,7 +6,7 @@
 #include "config.h"
 #include "compute.h"
 
-__global__ void make_accel_matrix(vector3** accels, vector3* values) {
+__global__ void make_accel_matrix(vector3* accels, vector3* values) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= NUMENTITIES) {
         return;
@@ -21,7 +21,7 @@ __global__ void computeAccel(vector3** accels, vector3* values, vector3 *accel_s
     if (i >= NUMENTITIES) {
         return;
     }
-    accels[i] = &values[idx*NUMENTITIES];
+    accels[i] = &values[i*NUMENTITIES];
 
     for (j=0;j<NUMENTITIES;j++) {
         if (i == j) {
@@ -51,7 +51,7 @@ __global__ void computeSum(vector3** accels, vector3 *accel_sum, vector3* hVel, 
 	}
 
     for (k=0;k<3;k++){
-		hVel[i][k]+=accel_sum[k]*INTERVAL;
+		hVel[i][k]+=accel_sum[i][k]*INTERVAL;
 		hPos[i][k]=hVel[i][k]*INTERVAL;
 	}
 }
